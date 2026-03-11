@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>sick.vision</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --body-bg: #111;
+      --left-bg: black;
+      --right-bg: #1e1e1e;
+      --page-bg: #111;
+      --button-gap: 5px;
+      --right-button-font: Verdana, sans-serif;
+      --right-button-size: 12.5px;
+      --left-button-font-size: 20px;
+      --top-panel-height: 150px;
+    }
+    /* bottom embeds side by side */
+    #bottom-embeds {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    #bottom-embeds .embed-block {
+      flex: 1 1 45%;
+      box-sizing: border-box;
+      min-width: 300px;
+    }
+    #bottom-embeds iframe {
+      width: 100%;
+      display: block;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background: var(--body-bg);
+      font-family: Arial, sans-serif;
+    }
+
+    #top-row {
+      display: flex;
+      width: 100%;
+      flex-shrink: 0;
+      align-items: flex-start;
+      box-sizing: border-box;
+    }
+
+    #left-top {
+      width: 85%;
+      height: var(--top-panel-height);
+      display: grid;
+      grid-template-rows: repeat(6, 1fr);
+      grid-auto-flow: column;
+      column-gap: 10px;
+      row-gap: 0px;
+      padding: 5px 5px 12px 5px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      box-sizing: border-box;
+      background-color: var(--left-bg);
+    }
+
+    #left-top a {
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: var(--left-button-font-size);
+      white-space: nowrap;
+      line-height: 1;
+      align-self: center;
+      transition: filter 0.15s, text-shadow 0.15s, transform 0.15s;
+      display: inline-block;
+    }
+
+    #left-top a:hover {
+      filter: saturate(3);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    #right {
+      width: 15%;
+      height: var(--top-panel-height);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 5px;
+      overflow: hidden;
+      box-sizing: border-box;
+      background-color: var(--right-bg);
+    }
+
+    #right a {
+      display: inline-block;
+      margin-bottom: 5px;
+      text-decoration: none;
+      font-weight: normal;
+      font-family: var(--right-button-font);
+      font-size: var(--right-button-size);
+      opacity: 0;
+      transform: translateX(-30px);
+      animation: slideIn 0.5s forwards;
+      transition: transform 0.2s, filter 0.2s;
+      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    }
+
+    #right a:nth-child(even) { margin-left: 35px; }
+
+    #right a:hover {
+      transform: translateX(5px);
+      filter: brightness(1.2);
+      font-weight: bold;
+    }
+
+    @keyframes slideIn {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    #pages {
+      flex-grow: 1;
+      width: 100%;
+      padding: 5px;
+      margin: 0;
+      box-sizing: border-box;
+      background-color: var(--page-bg);
+      color: white;
+      font-size: 25px;
+    }
+
+    .page { display: none; }
+    .page h3 { margin: 0; }
+    .page p { margin: 0; }
+
+    /* ── Mobile ── */
+    @media (max-width: 600px) {
+      :root {
+        --top-panel-height: 140px;
+        --left-button-font-size: 15px;
+        --right-button-size: 12px;
+        --button-gap: 5px;
+      }
+
+      #left-top {
+        width: 80%;
+        grid-template-rows: repeat(6, 1fr);
+      }
+
+      #right {
+        width: 20%;
+      }
+
+      #right a:nth-child(even) { margin-left: 10px; }
+
+      #pages {
+        padding: 10px;
+        font-size: 20px;
+      }
+
+      #pages h3 { font-size: 20px; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="top-row">
+    <div id="left-top"></div>
+    <div id="right"></div>
+  </div>
+  <div id="pages"></div>
+
+  <script>
+    const config = {
+      leftColorChangeInterval: 1000,
+
+      leftButtons: [
+{ text: "sketamine serotonin snow", content: "Fellas take me to much for granted i have to practice extinction to be appreciated  Sad it has to be that way..  Oh well play the cards that I*m given.. Sigh i can see almost every possible outcome so that*s why stay ultra un bothered .. Don*t get it twisted though i get so much Luv it feel like im Dreamin; only show the positive so they think I don*t feel 💔  The World Of Social Media is to Overwhelming 😣 So i stay in my Own World Sometimes🤧 log in post my music log out ✌️Learned 2 Embrace the internet age Livin simoutensly chronically offline & online Balance is key🔑 ⚖️ Sick Vision cannot be condensed into *short form content* My music is a peak inside my World Everyone is invited 💝Just kno u guys that are on the Internet  to connect collide worlds break out the shell express yourself  exchange information & ideas Are the #real Gems✌️ Everyone else is in a race for internet points Dead Internet theory...; they treat everything like a chess game I*m just Perk-A-Cola freestyling Fuck Around Find Out Lifestyle  i just hop on the game and play .. i don*t have no filter no algorithm i just tune my signal 📡📺 Wired tf up like Serial Expirements Lain  the whole server interconnected im droppin cheat codes for games das not even out yet mate This my rookie season yet im ballin like a fuckin Vet ultra curious life style  im just tryna show yall what ive learned  Student of Life ;ask for nothing in return cause ultimately i am nothing that*s the beauty of it  i created something out of Nothing; i don*t play the fool i am the fool i created the fool i live through the fool  Fooly Cooly Life Style I was just normal i went through a portal now my life changed like Mr. Deeds  Fellas Never Had that train of thought until Sick said it  Sick vision don*t follow no.rules i don*t give no fuck don*t act in relation to how other people view you  therefore becoming a free spirit  Turn myself to a free flowing instrument  To the core  Free entity  Free Angel Free agent  constant run on sentence  I won*t ever stop running shit Like Pepsi Man  aint tryna bush camp  These fellas made me realize i gotta lead the way  there aren*t enough Seperated from the Flock you can*t call it a sentence there is no end in my sight sick vision tunnel vision blinded by the ultra Light Stevie Wonder can*t see hate Im Blind semi colon life style for the real Do u see why i am Sick Everything goes back to Sick  it*s a Sick Paradox This is my Sick Vision Still Sick Un Patched Defeat Sick  Defeat my *Ego*   challenge every Sick idea Wtf is grammar create my own language sick language sick lingo sick world they can*t keep me in a box certainly not a circle i see geometric shapes ever expanding  There is no direction there is no left no right Ts Progressive  There is only Progression i never follow any direction that*s why its so hard to understand no lines straight rhymes straight poetry in constant motion constant flow  this is pure art  i told yall it doesn*t even come from me  How can you only see one way  the brain is a plaza not a street  the world is a sandbox Im Creating shit that*s never been created before Sick swag it*s no limit to the shit you can do  I could die if i sleep cause i live in my dreams; Livin life so magical Mushrooms Literally take u out the default mode network of ur Brain   Therefore a cycle cannot form   That*s why u always see me on New shit mate  Exploring different Planets;Shrooms upgrade my Articulation so much geometric shapes so focused Writing Scriptures Speak my Truth  Movin so Neuroplastic it*s Amazing Ur mind is a Treasure   Actualize it or it just slips into the void  into the Lava🔥If i see u poppin ur shit  I*ma let u kno i see you 🤘Gotta Lift Up My Team Its One Of the Reasons I*m on this Earth👽 Alot of cool shit goes unnoticed   ill always appreciate the fine details Most people just don*t wanna be the first to say it   and they won*t say something unless they see other people say it    I*ma always take the opportunity to take the initiative  don*t get stuck by the bystander effect  exercise the fuck around find out lifestyle to the Max  Who gonna tell me im the Greatest (Me) No joke listen to my own music when i feel down just a reminder Sick capable of greatness just a reminder ur on this earth to create Who gonna check all my bullshit put me to the side (ME) Fuckin Soldier Create the Best Me  the deeper u go in ur brain the more space u create Constantly Analyzing my Psyke  Imaginery scenarios my head infinite Dimensions Idgaf about maintaining an image I*ma Keep It Different Keep it fresh Idgaf Lifestyle Don*t forget ur mining Minerals Diamonds Unlimited When u make space in ur brain u can see it as what it is Don*t forget the naked mind sees the Truth When u take a step back & look at the people that hate & look at the people showing Luv   U can see why  it*s that way  Won*t speak bout nun Ain*t do my homework on 📝  When u take a step back and look at the music the art u can*t deny the greatness  Don*t forget u can really do whatever u want in this world it*s your world  in my head ill never die if i.die tonight at least ill die myself; if i die tonite at least im goin heaven i lived life in Hell ; Stuck in a never ending  Paradox but that*s why u can*t stay stuck keep moving semi colon life style  Don*t forget im not even from this Earth.. Don*t forget I*m not even American english was never my language Im tryna show y*all it*s other worlds out there  Sick Otherwordly Sick Ever expanding universe  The universe is never stagnant; Never stop Exploring ; Politics ain*t tryna hear my pain so i give em the Fire  King of my spirit i curate this shit  i just get wiser and older i kno before i assume  i just cut everyone off if im 1 then how can i Lose? Design my life This the Product of Hours Minutes Seconds  Like Young Sick Been Workin All Nite Aint Even Pre The Time  these are the ideas floating in my mind  I don*t care about the numbers I*ma keep putting shit out cause ima always create regardless  I kno at least one soul  rock wit it & that means everything to me  I get my wisdom from SpongeBob ; I talk for the real ones that feel ts out in Bikini bottom i*m tweakin out for the real ones that feel this shit out in Saturn 🪐Psyked tf up i go psykotic for the real ones that feel this shit out in WASP-62b  Sick Vision U Either wit it or u Not  Sick Gang🤘" },
+{ text: "MDMA Psylocybin", content: "<br>MDMA+ Psylocybin <br>Known as the Hippie Flip 🤓 <br><br>Marvelous Combo<br>Perhaps the greatest combo i have ever tried<br>They compliment each other so well like yin and yang it really brought out the best out of each substance<br>Peak potentiators of each other<br>Best visuals constant visuals <br>The visuals flowed within the movement of the eye<br>(Usually with the magic mushrooms id have to focus on a single point for visuals to form nd whenever i switched my focal point they were gone)<br>It was different this time like the visuals formed in 9999x speed  like my vision was really being animated in real time  <br>Creating out of nothing <br>All the patterns swishing all the patterns clicking <br>Greatest visuals i have experienced <br>Really amazed on how the visuals formed flowed rolled in real time  really broke reality  it was a whole new world so colourful and colours kept popping out colours were breathing rolling <br>Very colourful imagery  Very vivid <br>Unable to fully articulate how amazing this experience was<br>I realized a lot of the research i do is in attempt.to find ways to articulate this shit  by seeing how other people articulated it or with scientific terms and or ++++++ etc etc xD<br>A lot of the times i try to articulate the ideas im thinking about i can*t find the right word or term  So i go looking for new terms to unlock to my arsenal my brain my armory<br><br>And also i went into this not knowing what the fuck i was going in to  initially i took the 40mg molly for a fun time and as i realized i was having so.much fun time was moving too fast so i took a gram of mushrooms to slow down time as i also had been wanting to take a bigger dose of shrooms lately and behold 🤯🤯🤯🤯🤯🤯🤯🤯🤯🤯🤯🤯🤯🤯🤯<br><br><br>Usually with bigger doses of mushrooms like this they put me in a trance like state  <br>out of body experience <br><br>Psychedelics really are amazing these are my unfiltered thoughts unapologetically sick un corrected no correction no revision raw raw raw <br>Still Sick Un patched <br>Exploring my mind - i am learning so much<br>Abstract ideas flow through my mind at a rate too fast for me to catch too fast for me to translate to words<br>Alien Frequencies Otherworldly <br>Talk for the real ones that feel ts out in Pleasant Park 🏞️" },
+{ text: "scholarbreakfast", content: "I*m not gonna act like a scholar and act like i read books for breakfast <br>I*ma be honest i still haven*t finished the book  i bought last YEAR<br><br>I still do a lot of reading  a lot of subjects float my mind so i find myself doing a lot of research <br>Reading articles  surfing the internet <br>Surfing internet passages <br>That*s my favorite way to learn  ;<br>I find it way easier to fall a deep rabbit hole than to finish a book <br>It is undoubtedly more fun to read from different sources different points of views  <br>Still i think  i just haven*t stumbled across the right books  I*ma keep looking  cause when ur so immersed in a certain topic  reading about it ; learning more is so undyingly satisfying [ i don*t care if that*s not a word  it is now ] 😁😁<br>Ultimately my passion for learning about so many different things ^<br>The expansion of ideas 🤯💡🤯💡^overpowers the orthodox way of learning so i do it the sick way (®),<br>still sick un patched <br><br>The more i indulge in the act of reading+ the better im able to articulate alien Frequencies my mind<br>Using the unlimited information  of the internet to better understand Everything <br>Unlocking new words new sayings leading to creating new sayings ; <br>sick terminology <br>Articulation Loading... Sick Vision . . . <br>Geometric shapes my brain translated into the English Language <br>Sick Language 🤧🤧🤧<br><br>I find myself very interested in the logistics of how every ting operates<br>So i.like to share my findings  similar to how others have <br>Openess** leads to unlimited heights <br>Learning from each other 🤓😁📝" },
+{ text: "Festo", content: "Doctor i need help the game Sick<br><br>Chat  Stop Rushin  Him  Let him take his time<br><br>Geometric Shapes++  Articulation Loading...<br><br>Western  Culture  So  Toxic  So Negative  its a Free for all <br><br>Dont Nobody Know Your Struggle<br><br>Get to heaven  Just Livin through #Hell <br><br>Lose my head when the Night*s Gone Been in my Zone  Cant Concentrate with the lights on<br><br>Take it to Another Level w Everything <br><br>Dey Say Life is 1 Big Test   #I*m #Livin No Sleep  #I*m #Already  Deceased<br><br>Yet I am on a Mission to Unlimited Knowledge<br><br>Hating Ass Fellas Oh My God Still Flexin At Ya Mommas Get A Job!!!!<br><br>They Dont Understand Me  Its pissin em Off<br><br>Its a Damn Shame They Did Not Tell The Bluff<br><br>Pick the Pixake out the Shelf  go Diamond for Diamond<br><br>Put So Much  Detail  Into Every All Things<br><br>Death Before Dishonor<br><br>pop pills 2 evolve    aint noddin off  movin real active ly on a mission to  expand my mind  unlimited<br><br>#Boosted #Boosted #Boosted Leave My Enemies Busted!!!!!!!!!!<br><br>level up my eagle eye   see it from every angle every side every perspective  unlimited<br><br>The higher i get the #better <br><br>Pop Pills  Perk-A-Cola  Like XP Boost<br><br>The longer the wait the #better<br><br>Balance & Reflection the Key <br><br>Thinking So #Deep I*m in my #Conscious  <br><br><br><br><br>" },
+{ text: "internetexting", content: "What i like about texting and internet chatting is that you can really speak ur mind to the fullest <br>Nothing goes unsaid <br>Oh u thought of something else to add? Just type it uppp add it upppp <br>That*s like a universal experience where a real.life conversation ends and maybe u had nothing much to say at the time yet in reflection  suddenly you have so much to sayyy 🤯🤯🤯 that*s a good thing cause thing cause ur mind is training so next time itll reach the output faster Like upgraded RAM ++++<br><br>That*s one thing i believe a lot of people are oblivious too ; they perceive *double texting* as a disadvantage when it can really be used as an #Advantage  increased communication leading to better understanding  nod.emoji speed nod gif<br><br>+Dude like me  if it*s not constructive if it*s not fresh I won*t put out in the world  i believe that*s one of the keys of staying true to your self " },
+{ text: "limitless", content: "the Combination + Xpirementation of different substances is slowly starting to feel like Limitless <br>the way i been able to reconstruct my psyke with drugs makes me think the creation of my brain is perfect for the xpirementation of psychoactive substances<br>and yes i understand there will always be a dread of unknown adverse effects  due to the very violate;;;unpredictable  nature to chemistry <br>the state of mind plays into every thing and u could even say it is the initial factor on what proceeds; hence the importance of a positive headspace<br>we have yet to come close to comprehend these chemicals and the brain<br> that even applying the upmost caution u still playing with fire<br>sick desire to explore the unknown far exceeds any type of logical thinking <br>xpiremention a neccessary precursor to Advancement<br>Fuck Around Find Out Life Style  ; Russian Roullette Life Style " },
+{ text: "exist", content: "Ever since i was a kid i would have these thoughts every once in a while questioning the existeness of existiness <br>and this train of thought always resulted in my brain malfunctioning like a short curcuit <br>a different type of error like you wasnt even supposed to type that into the calculator<br>almost like we lack <br>due to unable to calculate & comprehend how existeness came to be <br>i understand this where a lot of brains will resort to god & religion<br>as a placeholder answer to make sense of the truly unknown paradoxical nature of consciousness<br>even if our existence is a result of a higher dimension <br>it just makes me question the existence of the higher dimension <br>i question the root & nature of all existence in itself  <br>what is beyond existness<br>and why is it that existeness exists , what makes it exist <br>the more i think about it the less it makes sense " },
+{ text: "consiistensy", content: "The inabilty in  which Sick unable to stay consistent  with quite literally any thing on this earth construction of existence<br>For Example  the inconsistensy of these words put together  Severaly Damaged Brain dont even know what type of Extra Terrerstial  communication  its attempting to construct <br>Funnily enough this echo*s  to how  little we know about the workings of the brain or conciousness<br>Would u say the brain*s ability to make these new connections is evidence of Neuroplasticity (Nerd Emoji)<br> Sick Enigma  Sick Infinty Directional Path to the Unknown <br>Sick Traversal through Sick World  Via CONNECTION(s)<br>Point being the inexistness of a Point <br>Semi colon life style ;;<br>The Existence of the unknown proves the Inexistence of the unknown <br>or the Unknown wouldve already been in-fact Known (BRAIN XPLODE EMOJI)<br>Sick Paradox <br>" },
+{ text: "selfdestructionpath", content: "Im self destructive in a way to create my best life<br>I can*t even ruin my life when there*s never even been nothing to ruin 😵<br>Self destruct to create <br>Reconstruct<br>Self reconstruction <br>Constant reconstruction <br>When ur a perfectionist u gotta enjoy the act of construction <br>The art of construction <br>cause u kno  theres never a final construction <br>Everybody*s running their own marathon <br>Everybody controls their own marathon <br>There are no rules so you make your own rules<br>If your losing what are you losing to? Yourself<br>If u take out the winning and the losing <br>It was never a win or lose<br>It just is<br>What it is<br>It is what you wish it to be<br>U create ur own path" },
+{ text: "step back", content: "The World Would Be a Much Better Place<br>  If everyone took a step back observe  instead of leaping to assume<br><br>If everyone took a step back to observe the angles  instead of leaping forward to assume <br><br><br>Step back observe the angles  Opposed to A Leap Forward to Assume <br>Step Back Harden<br>Step Back allen iversion gif<br><br>Step Back Perceive All Angles <br>Step Back Break Ankles<br><br>Step Back Calculate the Destruction of Ankles<br><br><br>Step Back Assimilate All Angles  Never Leap Forward Assumptions <br><br><br>Step Back Assimilate All Angles  Never Leap Forward Never Assume" },
+{ text: "perception", content: "Honestly its all about perception; i could easily  look back at the life i*m living and consider it uneventful <br>I could care less about remarks like that due to the fact design my life in the moment & why critique life as if it isnt omni present  <br>As long as u not in a Grave  U got the power to Change<br>we already stuck in this dimension  yet the power to do whatever the fuck u want to <br>Means u can only be stuck if u choose to<br>Semi Colon Life Style ;; <br>it*s Sick as fuck how no matter how u feel about your life  <br>U always have the ability to shape it " },
+{ text: "addiction", content: "eternal state of nothing two lose & the inevitablity of death <br>they say once you realize you addicted its already too late<br>dude like me foreshadowed the addiction before my first dose<br>attribute this to the understanding that everything comes with a price <br>& holding off investment until a certain threshold of general understanding of what type of door you are opening<br>the ability to calculate +access cost value ; risk anaylysis <br>power to design your own life  write ur own story own history " },
+{ text: "acidpuzzle", content: "Every Blotter of Acid is like a piece to the Puzzle 🧩🟥🟦🟪🟨🟧⏹️.. Literally <br><br>I don*t wanna finish the puzzle putting it together is too much Fun<br><br>Enjoy the trip don*t worry about the destination ✈️🛸🛬🌉🌍<br><br>Life is a Curse👀Life is a Gift🤯Life is a Blessing💝 <br><br>Don*t ever Think Life is on downwards trajectory <br>Constant Upward Motion<br><br>Every Passing Fraction of a seCond is a New Peak<br>The Moment is the Peak... 🤯💡💝<br><br>" },
+{ text: "mollycost", content: "fell in luv wit MDMA instantly that instantly understood the abuse potential of this  peak human experience  could possibly be at a cost<br><br><br> abuse potential of this peak human experience  <br><br><br>how if this peak human experienced was abused could to lead to a real expensive cost- big bill; grandiose <br>each roll added up on a receipt- currency=serotonin ; currency=brain" },
+{ text: "eph", content: "mastering shit on the minerals   got me movin jus as efficently off the minerals <br><br>master shit on minerals  2 move jus efficent off minerals <br><br>tweak on the minerals 2 complete wit no minerals <br><br>i dont come down from drugs  dat shit carry over to sobriety <br><br>maradona swag got the game in my hands " },
+{ text: "solo", content: "been around negativity all my life   <br><br>had 2 learn  2   block the noise<br>solo dolo =1of the most crucial skills  u can obtain<br><br>the energy   u have aroundu  matters a fuckin lot<br>it is tragically   veryvery  overlooked ..<br><br>yes u can do it solo  <br>yet it   limits   total Potential.." },
+{ text: "MagicMushroomRev", content: "Whole Lotta Micro+ Mini+ Doses+ Trips+ Levels+ Later <br>U [Me] Unlock New Mastery Of the Mind <br>Control+View  Consciousness on Level Unknown Before <br>Every Day Hour Minute Second Milli Moment  is an ADVENTURE++  NEWGAME++<br>Must share Experience(s) with World <br>New World ;; Sick World; " },
+{ text: "neuroconnection", content: "Psylocybin been so beneficial to understanding my brain <br>On a deeper level than ever before<br>The more i understand how my brain works  the better life i live<br>When u deep how ur brain interacts reacts to every day life  the better ur able to keep the negative brain chemicals away and " },
+{ text: "writtenbooks", content: "I could put together a book with all this 💭💭 That*s really what the website*s gonna be An Unorthodox Book  <br>I cant follow no rulesss Wtfffff <br><br>Line breaks just cause and fuck it never using periods cause the story never ends semi colon life style ;; " },
+{ text: "MOLLY", content: "Molly is the Answer<br>MOLLY<br>Like  is cool and all  BUT THERES SO MUCH COOLER<br>MY MOLLY PEAKKKKK<br>LIFE SO PEAK<br>OK MOLLY IS THE PEAKEST <br>Molly Yawn<br>MOlly Positive Yawn<br>Serotonin Yawn<br>Dopamine Yawn <br>P<br>Leaveit Raw<br>LUV EVERYONE<br>LUV<br>MY MOLLY PEAKKKKKK" },
+{ text: "unapologetically", content: "Ain*t Never Trippin bout Nun i*m just glad to see another Day Hour Minute Second<br>DVD DVD My Life is a Cartoon 💽<br>Free spirit Free soul Free angel Free Entity in this World 💥<br><br>Unapologetically Sick<br>U either wit Sick or u Not 🤧" },
+{ text: "open", content: "Part of keeping your mind as open as possible is realizing the fact there is no limit to the openess & knowing no matter how<br>open you think your mind is    best believe you can open it some more" },
+{ text: "mollybraindeath", content: "Maybe Molly will make me Brain Dead but Maybe that*s Ok<br><br>Yes this Substance Abuse is Damaging My Brain Yet it is Simultaneously Unlocking It<br><br>Always been to smart for my own good any way " },
+{ text: "halftabacid", content: "I forget what i look like sometimes <br><br>I forget what i look like sometimes until i look in the mirror again<br><br>Half a tab of acid <br><br>Half a tab of acid half of a sentence" },
+{ text: "internetshit", content: "To much Amphetamine My Body I had to Detox I was losin it<br><br>I really don*t kno how much longer i can do this internet shit  i really enjoy the days without it" },
+{ text: "TREASUre", content: "Don*t Take Psychedlics and Expect them to just Fix you <br>Yes they might show you the way to Treasure  <br>iTs up to you what you do with the Vault <br>" },
+{ text: "outofbodyexp", content: "Out of body experience <br>Usually i would keep going sleepless <br><br><br>Yet with different drugs come different paths<br>I think ill let myself rest tonite " },
+{ text: "alonetime", content: "I don*t know i just feel like i am having so.much more fun when im Alone✌️✌️✌️✌️<br><br>Nobody to bring me down💝💝💝💝" },
+{ text: "forgormore", content: "Today i jumped the fence of my own home cause i forgot the keys<br><br>It was fun<br><br>I should forget my keys more often" },
+{ text: "everexpansion", content: "My wisdom comes from  all the<br><br>Lifetimes <br><br>Out of body experiences<br><br>Ever expanding alternative perspectives<br><br>" },
+{ text: "Life & Death", content: "Addicted to Life  same way Addicted to Death<br>Inevitable  so i don;t even fight it <br>Natural Balance " },
+{ text: "loadingscreens", content: "Ive found that the perfect time to interact with the of my phone is during real life loading screens" },
+{ text: "withdrawals", content: "One cool thing about withdrawal is that u can kinda just sleep it off<br>Luv From Mercury 💝✌️" },
+{ text: "nostalgia", content: "I bring back the nostalgia <br>Pump it back put it in my blood<br><br>Everything Real so keep on Watchin" },
+{ text: "habits", content: "Habits Foreign to the Sick Lifestyle<br>Lack of a Default Setting Habits unable to Form " },
+{ text: "no doubt", content: "It*s  no denial  sick creating greatness  sick cant doubt sickself  DOUBT DELETED  " },
+{ text: "portal", content: "I was just normal i went through a portal now my life changed like Mr. Deeds 😵" },
+{ text: "delusion", content: "its kool to still have delusional thoughts recognizing they come from delusion " },
+{ text: "psylocybinluv", content: "Every time im on the shrooms i can*t help but say how much i.love the shrooms " },
+{ text: "insanity", content: "If you can deal with your own Insanity<br>    It usually Turns out Beautiful ;;" },
+{ text: "frontolcortex", content: "U kno the shrooms hitting when u start to feel ur Frontal Cortex Developing " },
+{ text: "acidlol", content: "Yeo acid is like the best drug of all time why would i even stop taking it " },
+{ text: "Alien", content: "Living So Different So Alien  No one has ever or will Live like this <br><br><br>" },
+{ text: "xpirement", content: "XPIREMENTING WITH  MUSIC<br>XPIREMENTING WITH MY BRAIN<br>XPIREMENTING WITH LIFE " },
+{ text: "drug lifetimes", content: "Take a couple drugs<br>Live a couple lifetimes <br>In a couple days" },
+{ text: "sanji", content: "Life been feelin like Sanji when he switched into Nami*s body" },
+{ text: "inspirationpolar", content: "Instead of being jealous u can always choose to be inspired " },
+{ text: "different universes", content: "When i think about you think about different universes" },
+{ text: "rrrrrrrrrrr", content: "#retrospective #reflections  #revelations #reminisce" },
+{ text: "acidswag", content: "TO SWAGGED OUT DON*T FEEL NOBODY TURN UP MYSELF " },
+{ text: "Wisdom", content: "Drug Induced Wisdom <br>Psychedlic Induced Wisdom" },
+{ text: "molly death", content: "Drop.Some Molly My Soda and i almost died again" },
+{ text: "boot", content: "Ask me why i been quiet im bootin up hold up" },
+{ text: "snowpost", content: "<br>Block Ain*t Hot ForesureSki <br>Still Posted " },
+{ text: "rackscoat", content: "Couple racks this coat can*t catch a cold " },
+{ text: "subtleshadowing", content: "Subtle foreshadowing all around Watch Out" },
+{ text: "Overly Concious", content: "Overly Concious Its a little disturbing  " },
+{ text: "tactical breath", content: "Don*t forget to take a tactical breath" },
+{ text: "upliftion", content: "Dude like me all i kno Upliftion +++" },
+{ text: "fashionweek", content: "Fashion Week or Not Still Swaggin " },
+{ text: "psyolycbinrev", content: "100mg Magic Mushroom Revelations " },
+{ text: "tism", content: "I*m not a Artist I*m a Autist " },
+{ text: "sickmaginery", content: "Imaginary scenarios my head " },
+      ],
+
+      rightLinks: [
+        { text: "SOUNDCLOUD", url: "https://soundcloud.com/rryoukai/sets/sick-music", color: "#ff6600" },
+        { text: "YOUTUBE",    url: "https://www.youtube.com/playlist?list=PLMwALMqR2CnhXhd7baQulCzR184nrBenD", color: "#ff0800" },
+        { text: "SPOTIFY",    url: "https://open.spotify.com/playlist/2De5n4iBWT6pl6z6eAOXgu?si=dk1deUgXQ9G5m6MLmcgwOw", color: "#1db954" },
+        { text: "INSTAGRAM",  url: "https://www.instagram.com/stillsick1", color: "#ffd700" },
+        { text: "LASTFM",     url: "https://www.last.fm/user/noluvlost", color: "#8b0000" },
+      ]
+    };
+
+    /* ===================== */
+    const leftTop    = document.getElementById("left-top");
+    const rightPanel = document.getElementById("right");
+    const pages      = document.getElementById("pages");
+
+    // Left buttons + pages
+    const pageLinks = [];
+
+    // Generate dark spectrum colors evenly spread, shuffled randomly
+    function getDarkSpectrumColors(count) {
+      const colors = Array.from({ length: count }, (_, i) => {
+        const h = Math.round((i / count) * 360);
+        return `hsl(${h}, 60%, 10%)`;
+      });
+      // Fisher-Yates shuffle
+      for (let i = colors.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [colors[i], colors[j]] = [colors[j], colors[i]];
+      }
+      return colors;
+    }
+
+    const pageBgColors = getDarkSpectrumColors(config.leftButtons.length);
+
+    config.leftButtons.forEach((btn, idx) => {
+      const a = document.createElement("a");
+      a.textContent = btn.text;
+      a.onclick = () => togglePage(idx);
+      leftTop.appendChild(a);
+      pageLinks.push(a);
+
+      pages.innerHTML += `
+        <div id="page${idx}" class="page" style="background-color: ${pageBgColors[idx]}">
+          <h3>${btn.text}</h3>
+          <p>${btn.content}</p>
+        </div>`;
+    });
+
+    // keep track of which page (if any) is currently displayed
+    let currentPage = null;
+
+    function togglePage(n) {
+      // if the user clicked the already-open page, close it
+      if (currentPage === n) {
+        const activePage = document.getElementById("page" + n);
+        activePage.style.display = "none";
+        pages.style.backgroundColor = "var(--page-bg)"; // revert to default panel color
+        currentPage = null;
+        return;
+      }
+
+      // otherwise show the requested page
+      document.querySelectorAll(".page").forEach(p => p.style.display = "none");
+      const activePage = document.getElementById("page" + n);
+      activePage.style.display = "block";
+      pages.style.backgroundColor = pageBgColors[n];
+      currentPage = n;
+    }
+
+    // Right panel links
+    config.rightLinks.forEach((lc, idx) => {
+      const a = document.createElement("a");
+      a.href = lc.url;
+      a.target = "_blank";
+      a.textContent = lc.text;
+      a.style.color = lc.color;
+      a.style.animationDelay = `${idx * 0.1}s`;
+      rightPanel.appendChild(a);
+    });
+
+    // embed panel removed
+
+    // Static colors evenly spread through colour spectrum
+    function assignSpectrumColors() {
+      const count = config.leftButtons.length;
+      pageLinks.forEach((link, idx) => {
+        const h = Math.round((idx / count) * 360);
+        link.style.color = `hsl(${h}, 80%, 55%)`;
+      });
+    }
+
+    assignSpectrumColors();
+    // no default page on load; user must click a link to view a page
+    // togglePage(0);
+  </script>
+
+  <!-- bottom embeds -->
+  <div id="bottom-embeds" style="padding:10px;background:#000;color:#fff;">
+    <div class="embed-block">
+      <!-- additional SoundCloud playlist embed (moved to top) -->
+      <iframe height="352" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A2184743804&color=%2364548c&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+      <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/rryoukai" title="sick" target="_blank" style="color: #cccccc; text-decoration: none;">sick</a> · <a href="https://soundcloud.com/rryoukai/sets/sick-music" title="Sick Music" target="_blank" style="color: #cccccc; text-decoration: none;">Sick Music</a></div>
+    </div>
+
+    <div class="embed-block">
+      <!-- YouTube playlist embed -->
+      <iframe height="352" src="https://www.youtube.com/embed/videoseries?list=PLMwALMqR2CnhXhd7baQulCzR184nrBenD" 
+        title="YouTube playlist player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+      </iframe>
+    </div>
+    <div class="embed-block">
+      <!-- Spotify playlist embed -->
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2De5n4iBWT6pl6z6eAOXgu?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+    <div class="embed-block">
+      <!-- Apple Music album embed -->
+      <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="352" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/sick-3/1679136796"></iframe>
+    </div>
+  </div>
+
+</body>
+</html>
