@@ -12,7 +12,7 @@
       --button-gap: 5px;
       --right-button-font: Verdana, sans-serif;
       --right-button-size: 12.5px;
-      --left-button-font-size: 20px;
+      --entries-button-font-size: 20px;
       --top-panel-height: 150px;
     }
     /* bottom embeds side by side */
@@ -37,6 +37,7 @@
       display: flex;
       flex-direction: column;
       overflow-y: auto;
+      overflow-x: hidden;
       background: var(--body-bg);
       font-family: Arial, sans-serif;
     }
@@ -49,25 +50,158 @@
       box-sizing: border-box;
     }
 
-    #left-top {
-      width: 85%;
+    #search-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 1fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 2fr);
+      align-items: center;
+      gap: 2px;
+      width: 100%;
+      padding: 2px 3px;
+      background: #000;
+      border-bottom: 1px solid #101010;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    #entry-search {
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #cfcfcf;
+      font-size: 15px;
+      letter-spacing: 0.01em;
+      outline: none;
+    }
+
+    .toolbar-select,
+    .toolbar-button {
+      width: 100%;
+      min-width: 0;
+      height: 26px;
+      border: 1px solid #1f1f1f;
+      background: #0b0b0b;
+      color: #bdbdbd;
+      font-size: 12px;
+      outline: none;
+      border-radius: 0;
+      padding: 0 6px;
+    }
+
+    .toolbar-select {
+      color-scheme: dark;
+      border-color: #5f77a3;
+      box-shadow: inset 0 0 0 1px rgba(170, 200, 255, 0.18);
+    }
+
+    .toolbar-select option {
+      background: #0b1220;
+      color: #f4f8ff;
+      font-weight: 600;
+    }
+
+    .toolbar-select option:checked {
+      background: #234c82;
+      color: #ffffff;
+    }
+
+    .toolbar-select:focus,
+    .toolbar-button:focus {
+      border-color: #4b4b4b;
+      color: #f2f2f2;
+    }
+
+    .toolbar-button {
+      text-align: center;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    #sort-button {
+      border-color: #515151;
+      background: #151515;
+      color: #f0f0f0;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    #sort-button.sort-new {
+      background: #143742;
+      border-color: #3ac1de;
+      color: #9befff;
+    }
+
+    #sort-button.sort-old {
+      background: #3a2c14;
+      border-color: #f2c35f;
+      color: #ffe6a8;
+    }
+
+    #sort-button.sort-char-count {
+      background: #3a1432;
+      border-color: #de67c1;
+      color: #ffc6ef;
+    }
+
+    .filter-select {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(9, 11, 19, 0.95) 0%, rgba(4, 6, 12, 0.95) 100%);
+      color: #ebf3ff;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      box-shadow: inset 0 0 0 1px rgba(160, 190, 255, 0.12);
+    }
+
+    .filter-select:focus {
+      border-color: #8cc0ff;
+      color: #f2f7ff;
+    }
+
+    #year-filter {
+      border-left: 3px solid #59bbff;
+      box-shadow: inset 0 0 0 1px rgba(89, 187, 255, 0.2);
+    }
+
+    #month-filter {
+      border-left: 3px solid #9f82ff;
+      box-shadow: inset 0 0 0 1px rgba(159, 130, 255, 0.2);
+    }
+
+    #length-filter {
+      border-left: 3px solid #53d9ab;
+      box-shadow: inset 0 0 0 1px rgba(83, 217, 171, 0.2);
+    }
+
+    #entry-search::placeholder {
+      color: #4b4b4b;
+    }
+
+    #entry-search:focus {
+      outline: none;
+    }
+
+    #entries-panel {
+      width: 100%;
       height: var(--top-panel-height);
       display: grid;
       grid-template-rows: repeat(6, 1fr);
       grid-auto-flow: column;
       column-gap: 10px;
       row-gap: 0px;
-      padding: 5px 5px 12px 5px;
+      padding: 5px 1% 12px 5px;
       overflow-x: auto;
       overflow-y: hidden;
       box-sizing: border-box;
       background-color: var(--left-bg);
     }
 
-    #left-top a {
+    #entries-panel a {
       cursor: pointer;
       text-decoration: underline;
-      font-size: var(--left-button-font-size);
+      font-size: var(--entries-button-font-size);
       white-space: nowrap;
       line-height: 1;
       align-self: center;
@@ -75,41 +209,24 @@
       display: inline-block;
     }
 
-    #left-top a:hover {
+    #entries-panel a:hover {
       filter: saturate(3);
       text-decoration: none;
       font-weight: bold;
     }
 
-    #right {
-      width: 15%;
-      height: var(--top-panel-height);
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      padding: 5px;
-      overflow: hidden;
-      box-sizing: border-box;
-      background-color: var(--right-bg);
+    #hyperlinks-panel {
+      width: 100%;
+      height: 32px;
     }
 
-    #right a {
-      display: inline-block;
-      margin-bottom: 5px;
-      text-decoration: none;
-      font-weight: normal;
-      font-family: var(--right-button-font);
-      font-size: var(--right-button-size);
-      opacity: 0;
-      transform: translateX(-30px);
-      animation: slideIn 0.5s forwards;
-      transition: transform 0.2s, filter 0.2s;
-      text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    #hyperlinks-panel a img {
+      min-width: 20%;
+      max-width: 20%;
+      height: 100%;
     }
 
-    #right a:nth-child(even) { margin-left: 35px; }
-
-    #right a:hover {
+    #hyperlinks-panel a:hover {
       transform: translateX(5px);
       filter: brightness(1.2);
       font-weight: bold;
@@ -130,52 +247,205 @@
       font-size: 25px;
     }
 
-    .page { display: none; }
+    .page {
+      display: none;
+      position: relative;
+      min-height: 180px;
+      padding: 0 0 8px 0;
+      box-sizing: border-box;
+    }
     .page h3 { margin: 0; }
     .page p { margin: 0; }
+    .page-date {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-top: 16px;
+      text-align: right;
+    }
 
     /* ── Mobile ── */
     @media (max-width: 600px) {
       :root {
-        --top-panel-height: 140px;
-        --left-button-font-size: 15px;
-        --right-button-size: 12px;
+        --top-panel-height: 200px;
+        --entries-button-font-size: 15px;
         --button-gap: 5px;
       }
 
-      #left-top {
-        width: 80%;
-        grid-template-rows: repeat(6, 1fr);
+      #entries-panel {
+        width: 100%;
+        grid-template-rows: repeat(8, 1fr);
       }
 
-      #right {
-        width: 20%;
+      #hyperlinks-panel {
+        width: 100%;
       }
-
-      #right a:nth-child(even) { margin-left: 10px; }
 
       #pages {
-        padding: 10px;
         font-size: 20px;
+        padding: 5px;
+      }
+
+      #search-wrap {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 1fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 2fr);
+        padding: 2px;
+        gap: 1px;
+      }
+
+      #entry-search {
+        font-size: 12px;
+        padding: 2px;
+      }
+
+      .toolbar-select,
+      .toolbar-button {
+        font-size: 11px;
+        height: 24px;
+      }
+
+      #sort-button {
+        font-weight: 600;
+      }
+
+      #year-filter {
+        border-left-width: 2px;
+      }
+
+      #month-filter,
+      #length-filter {
+        border-left-width: 2px;
       }
 
       #pages h3 { font-size: 20px; margin: 0; }
+      .page-date { font-size: 10px; }
+    }
+
+    /* ── Discussion ── */
+    .discussion-section {
+      margin-top: 12px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.09);
+    }
+
+    .discussion-section h4 {
+      margin: 0 0 12px 0;
+      color: rgba(255, 255, 255, 0.38);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+    }
+
+    .discussion-comments {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .no-comments {
+      color: rgba(255, 255, 255, 0.22);
+      font-size: 13px;
+      font-style: italic;
+    }
+
+    .discussion-comment {
+      background: rgba(255, 255, 255, 0.04);
+      border-left: 2px solid rgba(255, 255, 255, 0.18);
+      padding: 8px 12px;
+      box-sizing: border-box;
+    }
+
+    .comment-author {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.35);
+      margin-bottom: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    .comment-text {
+      font-size: 14px;
+      color: #c8c8c8;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .discussion-form {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .discussion-form input,
+    .discussion-form textarea {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      color: #ddd;
+      font-size: 13px;
+      padding: 7px 10px;
+      outline: none;
+      resize: vertical;
+      font-family: inherit;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .discussion-form input::placeholder,
+    .discussion-form textarea::placeholder {
+      color: rgba(255, 255, 255, 0.22);
+    }
+
+    .discussion-form input:focus,
+    .discussion-form textarea:focus {
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .disc-submit {
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #ccc;
+      font-size: 12px;
+      padding: 5px 16px;
+      cursor: pointer;
+      letter-spacing: 0.07em;
+      font-family: inherit;
+      text-transform: lowercase;
+    }
+
+    .disc-submit:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
     }
   </style>
 </head>
 <body>
 
+  <div id="search-wrap">
+    <input id="entry-search" type="text" placeholder="⌕ type shit" aria-label="Search entries">
+    <button id="sort-button" class="toolbar-button" type="button" aria-label="Sort entries: character count" title="Sort: character count">#</button>
+    <select id="year-filter" class="toolbar-select filter-select" aria-label="Filter by year">
+      <option value="all">all years</option>
+    </select>
+    <select id="month-filter" class="toolbar-select filter-select" aria-label="Filter by month">
+      <option value="all">all months</option>
+    </select>
+    <select id="length-filter" class="toolbar-select filter-select" aria-label="Filter by entry length">
+      <option value="all">all lengths</option>
+    </select>
+  </div>
   <div id="top-row">
-    <div id="left-top"></div>
-    <div id="right"></div>
+    <div id="entries-panel"></div>
   </div>
   <div id="pages"></div>
+  <div id="hyperlinks-panel"></div>
 
   <script>
     const config = {
-      leftColorChangeInterval: 1000,
+      entriesColorChangeInterval: 1000,
 
-      leftButtons: [
+      entriesButtons: [
 { text: "sketamine serotonin snow", content: "Fellas take me to much for granted i have to practice extinction to be appreciated  Sad it has to be that way..  Oh well play the cards that I*m given.. Sigh i can see almost every possible outcome so that*s why stay ultra un bothered .. Don*t get it twisted though i get so much Luv it feel like im Dreamin; only show the positive so they think I don*t feel 💔  The World Of Social Media is to Overwhelming 😣 So i stay in my Own World Sometimes🤧 log in post my music log out ✌️Learned 2 Embrace the internet age Livin simoutensly chronically offline & online Balance is key🔑 ⚖️ Sick Vision cannot be condensed into *short form content* My music is a peak inside my World Everyone is invited 💝Just kno u guys that are on the Internet  to connect collide worlds break out the shell express yourself  exchange information & ideas Are the #real Gems✌️ Everyone else is in a race for internet points Dead Internet theory...; they treat everything like a chess game I*m just Perk-A-Cola freestyling Fuck Around Find Out Lifestyle  i just hop on the game and play .. i don*t have no filter no algorithm i just tune my signal 📡📺 Wired tf up like Serial Expirements Lain  the whole server interconnected im droppin cheat codes for games das not even out yet mate This my rookie season yet im ballin like a fuckin Vet ultra curious life style  im just tryna show yall what ive learned  Student of Life ;ask for nothing in return cause ultimately i am nothing that*s the beauty of it  i created something out of Nothing; i don*t play the fool i am the fool i created the fool i live through the fool  Fooly Cooly Life Style I was just normal i went through a portal now my life changed like Mr. Deeds  Fellas Never Had that train of thought until Sick said it  Sick vision don*t follow no.rules i don*t give no fuck don*t act in relation to how other people view you  therefore becoming a free spirit  Turn myself to a free flowing instrument  To the core  Free entity  Free Angel Free agent  constant run on sentence  I won*t ever stop running shit Like Pepsi Man  aint tryna bush camp  These fellas made me realize i gotta lead the way  there aren*t enough Seperated from the Flock you can*t call it a sentence there is no end in my sight sick vision tunnel vision blinded by the ultra Light Stevie Wonder can*t see hate Im Blind semi colon life style for the real Do u see why i am Sick Everything goes back to Sick  it*s a Sick Paradox This is my Sick Vision Still Sick Un Patched Defeat Sick  Defeat my *Ego*   challenge every Sick idea Wtf is grammar create my own language sick language sick lingo sick world they can*t keep me in a box certainly not a circle i see geometric shapes ever expanding  There is no direction there is no left no right Ts Progressive  There is only Progression i never follow any direction that*s why its so hard to understand no lines straight rhymes straight poetry in constant motion constant flow  this is pure art  i told yall it doesn*t even come from me  How can you only see one way  the brain is a plaza not a street  the world is a sandbox Im Creating shit that*s never been created before Sick swag it*s no limit to the shit you can do  I could die if i sleep cause i live in my dreams; Livin life so magical Mushrooms Literally take u out the default mode network of ur Brain   Therefore a cycle cannot form   That*s why u always see me on New shit mate  Exploring different Planets;Shrooms upgrade my Articulation so much geometric shapes so focused Writing Scriptures Speak my Truth  Movin so Neuroplastic it*s Amazing Ur mind is a Treasure   Actualize it or it just slips into the void  into the Lava🔥If i see u poppin ur shit  I*ma let u kno i see you 🤘Gotta Lift Up My Team Its One Of the Reasons I*m on this Earth👽 Alot of cool shit goes unnoticed   ill always appreciate the fine details Most people just don*t wanna be the first to say it   and they won*t say something unless they see other people say it    I*ma always take the opportunity to take the initiative  don*t get stuck by the bystander effect  exercise the fuck around find out lifestyle to the Max  Who gonna tell me im the Greatest (Me) No joke listen to my own music when i feel down just a reminder Sick capable of greatness just a reminder ur on this earth to create Who gonna check all my bullshit put me to the side (ME) Fuckin Soldier Create the Best Me  the deeper u go in ur brain the more space u create Constantly Analyzing my Psyke  Imaginery scenarios my head infinite Dimensions Idgaf about maintaining an image I*ma Keep It Different Keep it fresh Idgaf Lifestyle Don*t forget ur mining Minerals Diamonds Unlimited When u make space in ur brain u can see it as what it is Don*t forget the naked mind sees the Truth When u take a step back & look at the people that hate & look at the people showing Luv   U can see why  it*s that way  Won*t speak bout nun Ain*t do my homework on 📝  When u take a step back and look at the music the art u can*t deny the greatness  Don*t forget u can really do whatever u want in this world it*s your world  in my head ill never die if i.die tonight at least ill die myself; if i die tonite at least im goin heaven i lived life in Hell ; Stuck in a never ending  Paradox but that*s why u can*t stay stuck keep moving semi colon life style  Don*t forget im not even from this Earth.. Don*t forget I*m not even American english was never my language Im tryna show y*all it*s other worlds out there  Sick Otherwordly Sick Ever expanding universe  The universe is never stagnant; Never stop Exploring ; Politics ain*t tryna hear my pain so i give em the Fire  King of my spirit i curate this shit  i just get wiser and older i kno before i assume  i just cut everyone off if im 1 then how can i Lose? Design my life This the Product of Hours Minutes Seconds  Like Young Sick Been Workin All Nite Aint Even Pre The Time  these are the ideas floating in my mind  I don*t care about the numbers I*ma keep putting shit out cause ima always create regardless  I kno at least one soul  rock wit it & that means everything to me  I get my wisdom from SpongeBob ; I talk for the real ones that feel ts out in Bikini bottom i*m tweakin out for the real ones that feel this shit out in Saturn 🪐Psyked tf up i go psykotic for the real ones that feel this shit out in WASP-62b  Sick Vision U Either wit it or u Not  Sick Gang🤘" },
 { text: "MDMA Psylocybin", content: "<br>MDMA+ Psylocybin <br>Known as the Hippie Flip 🤓 <br><br>Marvelous Combo<br>Perhaps the greatest combo i have ever tried<br>They compliment each other so well like yin and yang it really brought out the best out of each substance<br>Peak potentiators of each other<br>Best visuals constant visuals <br>The visuals flowed within the movement of the eye<br>(Usually with the magic mushrooms id have to focus on a single point for visuals to form nd whenever i switched my focal point they were gone)<br>It was different this time like the visuals formed in 9999x speed  like my vision was really being animated in real time  <br>Creating out of nothing <br>All the patterns swishing all the patterns clicking <br>Greatest visuals i have experienced <br>Really amazed on how the visuals formed flowed rolled in real time  really broke reality  it was a whole new world so colourful and colours kept popping out colours were breathing rolling <br>Very colourful imagery  Very vivid <br>Unable to fully articulate how amazing this experience was<br>I realized a lot of the research i do is in attempt.to find ways to articulate this shit  by seeing how other people articulated it or with scientific terms and or ++++++ etc etc xD<br>A lot of the times i try to articulate the ideas im thinking about i can*t find the right word or term  So i go looking for new terms to unlock to my arsenal my brain my armory<br><br>And also i went into this not knowing what the fuck i was going in to  initially i took the 40mg molly for a fun time and as i realized i was having so.much fun time was moving too fast so i took a gram of mushrooms to slow down time as i also had been wanting to take a bigger dose of shrooms lately and behold 🤯🤯🤯🤯🤯🤯🤯🤯🤯🤯🤯🤯🤯🤯🤯<br><br><br>Usually with bigger doses of mushrooms like this they put me in a trance like state  <br>out of body experience <br><br>Psychedelics really are amazing these are my unfiltered thoughts unapologetically sick un corrected no correction no revision raw raw raw <br>Still Sick Un patched <br>Exploring my mind - i am learning so much<br>Abstract ideas flow through my mind at a rate too fast for me to catch too fast for me to translate to words<br>Alien Frequencies Otherworldly <br>Talk for the real ones that feel ts out in Pleasant Park 🏞️" },
 { text: "scholarbreakfast", content: "I*m not gonna act like a scholar and act like i read books for breakfast <br>I*ma be honest i still haven*t finished the book  i bought last YEAR<br><br>I still do a lot of reading  a lot of subjects float my mind so i find myself doing a lot of research <br>Reading articles  surfing the internet <br>Surfing internet passages <br>That*s my favorite way to learn  ;<br>I find it way easier to fall a deep rabbit hole than to finish a book <br>It is undoubtedly more fun to read from different sources different points of views  <br>Still i think  i just haven*t stumbled across the right books  I*ma keep looking  cause when ur so immersed in a certain topic  reading about it ; learning more is so undyingly satisfying [ i don*t care if that*s not a word  it is now ] 😁😁<br>Ultimately my passion for learning about so many different things ^<br>The expansion of ideas 🤯💡🤯💡^overpowers the orthodox way of learning so i do it the sick way (®),<br>still sick un patched <br><br>The more i indulge in the act of reading+ the better im able to articulate alien Frequencies my mind<br>Using the unlimited information  of the internet to better understand Everything <br>Unlocking new words new sayings leading to creating new sayings ; <br>sick terminology <br>Articulation Loading... Sick Vision . . . <br>Geometric shapes my brain translated into the English Language <br>Sick Language 🤧🤧🤧<br><br>I find myself very interested in the logistics of how every ting operates<br>So i.like to share my findings  similar to how others have <br>Openess** leads to unlimited heights <br>Learning from each other 🤓😁📝" },
@@ -239,24 +509,74 @@
 { text: "psyolycbinrev", content: "100mg Magic Mushroom Revelations " },
 { text: "tism", content: "I*m not a Artist I*m a Autist " },
 { text: "sickmaginery", content: "Imaginary scenarios my head " },
+{ text: "slushee", content: "https://lavenderslushee.com<br>fellow website neighbour very sick site slushee solar levels<br>re ignited sick passion to finally start on the website creation let me kno yiu kan do it toooo yiu can do whatevaaaaa" },
+{ text: "websitewebsite", date: "2026-03-13", content: "<img src='websitewebsite.webp' alt='Handwritten website note' style='max-width:100%;height:auto;border:1px solid rgba(255,255,255,0.2);margin-bottom:10px;'><br>Can Anybody Tell what this says?<br>Supposedly a website<br>Mysterious Elderly Dude with a question mark on his head ❓💡💭 Approached me with a side quest for a interview @ Location Washington square park ⏰Time about two Months ago<br>Also gifted me with a book📖  what a kind dude🐐 got my gratitude 😁😁<br>said the interview should be up on this website soon ⌛⌛<br>Not sure if the website is supposed to be even up Yet" },
+{ text: "so sick", date: "2026-03-13", content: "<div style='display:flex;align-items:center;gap:8px;max-width:720px;'><audio controls preload='metadata' style='flex:1;min-width:0;'><source src='so-sick.mp3' type='audio/mpeg'>Your browser does not support the audio element.</audio><a href='so-sick.mp3' download style='display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid rgba(255,255,255,0.25);text-decoration:none;color:#e0e0e0;font-size:18px;line-height:1;' aria-label='download audio' title='download audio'>&#128229;</a></div>" },
       ],
 
-      rightLinks: [
-        { text: "SOUNDCLOUD", url: "https://soundcloud.com/rryoukai/sets/sick-music", color: "#ff6600" },
-        { text: "YOUTUBE",    url: "https://www.youtube.com/playlist?list=PLMwALMqR2CnhXhd7baQulCzR184nrBenD", color: "#ff0800" },
-        { text: "SPOTIFY",    url: "https://open.spotify.com/playlist/2De5n4iBWT6pl6z6eAOXgu?si=dk1deUgXQ9G5m6MLmcgwOw", color: "#1db954" },
-        { text: "INSTAGRAM",  url: "https://www.instagram.com/sickxyz", color: "#ffd700" },
-        { text: "LASTFM",     url: "https://www.last.fm/user/noluvlost", color: "#8b0000" },
+      hyperlinksLinks: [
+        { text: "SOUNDCLOUD", url: "https://soundcloud.com/rryoukai/sets/sick-music",img: "soundcloud.webp" },
+        { text: "YOUTUBE",    url: "https://www.youtube.com/playlist?list=PLMwALMqR2CnhXhd7baQulCzR184nrBenD", img: "youtube.webp"  },
+        { text: "SPOTIFY",    url: "https://open.spotify.com/playlist/2De5n4iBWT6pl6z6eAOXgu?si=dk1deUgXQ9G5m6MLmcgwOw", img: "spotify.webp"  },
+        { text: "INSTAGRAM",  url: "https://www.instagram.com/sickxyz", img: "instagram.webp"  },
+        { text: "LASTFM",     url: "https://www.last.fm/user/noluvlost", img: "lastfm.webp"  },
       ]
     };
 
     /* ===================== */
-    const leftTop    = document.getElementById("left-top");
-    const rightPanel = document.getElementById("right");
+    const entriesPanel = document.getElementById("entries-panel");
+    const hyperlinksPanel = document.getElementById("hyperlinks-panel");
     const pages      = document.getElementById("pages");
+    const searchWrap = document.getElementById("search-wrap");
+    const entrySearch = document.getElementById("entry-search");
+    const sortButton = document.getElementById("sort-button");
+    const yearFilter = document.getElementById("year-filter");
+    const monthFilter = document.getElementById("month-filter");
+    const lengthFilter = document.getElementById("length-filter");
 
-    // Left buttons + pages
+    const SORT_MODES = [
+      { value: "new", icon: "↓", title: "new", className: "sort-new" },
+      { value: "old", icon: "↑", title: "old", className: "sort-old" },
+      { value: "char-count", icon: "#", title: "character count", className: "sort-char-count" }
+    ];
+    let currentSortModeIndex = 2;
+
+    function getCurrentSortMode() {
+      return SORT_MODES[currentSortModeIndex].value;
+    }
+
+    function updateSortButtonUi() {
+      const mode = SORT_MODES[currentSortModeIndex];
+      sortButton.textContent = mode.icon;
+      sortButton.title = `Sort: ${mode.title}`;
+      sortButton.setAttribute("aria-label", `Sort entries: ${mode.title}`);
+      sortButton.classList.remove("sort-new", "sort-old", "sort-char-count");
+      sortButton.classList.add(mode.className);
+    }
+
+    function setupFilterOpenOnlyLabel(selectEl, openLabel) {
+      if (!selectEl || !selectEl.options || selectEl.options.length === 0) return;
+
+      const firstOption = selectEl.options[0];
+
+      function syncClosedLabel() {
+        if (selectEl.value === "all") {
+          firstOption.textContent = "";
+        }
+      }
+
+      selectEl.addEventListener("focus", () => {
+        firstOption.textContent = openLabel;
+      });
+
+      selectEl.addEventListener("blur", syncClosedLabel);
+      selectEl.addEventListener("change", syncClosedLabel);
+      syncClosedLabel();
+    }
+
+    // Entries buttons + pages
     const pageLinks = [];
+    let visibleEntryOrder = [];
 
     // Generate dark spectrum colors evenly spread, shuffled randomly
     function getDarkSpectrumColors(count) {
@@ -272,20 +592,359 @@
       return colors;
     }
 
-    const pageBgColors = getDarkSpectrumColors(config.leftButtons.length);
+    const pageBgColors = getDarkSpectrumColors(config.entriesButtons.length);
 
-    config.leftButtons.forEach((btn, idx) => {
+    const MONTH_SHORT_NAMES = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+    const MONTH_NAME_LOOKUP = {
+      january: 0, jan: 0,
+      february: 1, feb: 1,
+      march: 2, mar: 2,
+      april: 3, apr: 3,
+      may: 4,
+      june: 5, jun: 5,
+      july: 6, jul: 6,
+      august: 7, aug: 7,
+      september: 8, sept: 8, sep: 8,
+      october: 9, oct: 9,
+      november: 10, nov: 10,
+      december: 11, dec: 11
+    };
+
+    const ENTRY_DATE_OVERRIDES = {
+      "addiction": "2026-03-03",
+      "alien": "2026-02-25",
+      "delusion": "2026-03-03",
+      "eph": "2025-05-22",
+      "exist": "2026-03-02",
+      "festo": "2025-10-13",
+      "habits": "2026-03-02",
+      "life & death": "2026-03-02",
+      "limitless": "2026-03-02",
+      "magicmushroomrev": "2026-02-23",
+      "molly": "2026-01-30",
+      "mollycost": "2026-03-03",
+      "no doubt": "2026-02-18",
+      "open": "2026-02-25",
+      "overly concious": "2025-11-01",
+      "perception": "2026-03-02",
+      "solo": "2025-10-13",
+      "step back": "2026-03-08",
+      "treasure": "2026-02-25",
+      "wisdom": "2026-02-25",
+      "sketamine serotonin snow": "2026-01-25",
+      "consiistensy": "2026-03-02",
+      "MDMA Psylocybin": "2026-02-11",
+      "scholarbreakfast": "2026-02-12",
+      "internetexting": "2026-02-12",
+      "slushee": "2026-03-13",
+
+
+    };
+
+    function normalizeEntryKey(value) {
+      return String(value || "").trim().toLowerCase();
+    }
+
+    config.entriesButtons = config.entriesButtons.map((entry) => {
+      const overrideDate = ENTRY_DATE_OVERRIDES[normalizeEntryKey(entry.text)];
+      if (!overrideDate) return entry;
+      return {
+        ...entry,
+        date: overrideDate
+      };
+    });
+
+    function toTitleCase(value) {
+      return value
+        .split(/\s+/)
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(" ");
+    }
+
+    function inferEntryType(entry) {
+      const haystack = `${entry.text} ${stripHtml(entry.content || "")}`.toLowerCase();
+      if (/(molly|mdma|acid|shroom|psylocybin|psychedelic|drug|substance)/.test(haystack)) {
+        return "substance";
+      }
+      if (/(music|song|playlist|soundcloud|spotify|youtube|artist|rap|beat)/.test(haystack)) {
+        return "music";
+      }
+      if (/(internet|social media|texting|online|algorithm)/.test(haystack)) {
+        return "internet";
+      }
+      return "reflection";
+    }
+
+    function parseExplicitDate(value) {
+      if (typeof value !== "string" || !value.trim()) return null;
+      const parsed = new Date(value);
+      if (Number.isNaN(parsed.getTime())) return null;
+      return {
+        timestamp: parsed.getTime(),
+        year: String(parsed.getFullYear()),
+        month: MONTH_SHORT_NAMES[parsed.getMonth()],
+        day: parsed.getDate(),
+        precision: "day"
+      };
+    }
+
+    function buildDateLabel(dateInfo) {
+      if (dateInfo.precision === "day" && dateInfo.timestamp !== null) {
+        const parsed = new Date(dateInfo.timestamp);
+        return `${toTitleCase(MONTH_SHORT_NAMES[parsed.getMonth()])} ${parsed.getDate()}, ${parsed.getFullYear()}`;
+      }
+      if (dateInfo.precision === "month") {
+        if (dateInfo.year !== "unspecified" && dateInfo.month !== "unspecified") {
+          return `${toTitleCase(dateInfo.month)} ${dateInfo.year}`;
+        }
+        if (dateInfo.month !== "unspecified") {
+          return toTitleCase(dateInfo.month);
+        }
+      }
+      if (dateInfo.precision === "year" && dateInfo.year !== "unspecified") {
+        return dateInfo.year;
+      }
+      return "unspecified";
+    }
+
+    function detectDateFromContent(entry) {
+      const explicitDate = parseExplicitDate(entry.date);
+      if (explicitDate) return explicitDate;
+
+      const haystack = `${entry.text} ${stripHtml(entry.content || "")}`;
+      const normalized = haystack.replace(/\s+/g, " ").trim();
+      const monthNamesPattern = "january|jan|february|feb|march|mar|april|apr|may|june|jun|july|jul|august|aug|september|sept|sep|october|oct|november|nov|december|dec";
+
+      const isoMatch = normalized.match(/\b(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])\b/);
+      if (isoMatch) {
+        return parseExplicitDate(isoMatch[0]);
+      }
+
+      const numericDateMatch = normalized.match(/\b(0?[1-9]|1[0-2])[\/\-](0?[1-9]|[12]\d|3[01])[\/\-]((?:19|20)\d{2})\b/);
+      if (numericDateMatch) {
+        const monthIndex = Number(numericDateMatch[1]) - 1;
+        const day = Number(numericDateMatch[2]);
+        const year = Number(numericDateMatch[3]);
+        const parsed = new Date(year, monthIndex, day);
+        return {
+          timestamp: parsed.getTime(),
+          year: String(year),
+          month: MONTH_SHORT_NAMES[monthIndex],
+          day,
+          precision: "day"
+        };
+      }
+
+      const monthDayYearMatch = normalized.match(new RegExp(`\\b(${monthNamesPattern})\\s+(\\d{1,2})(?:st|nd|rd|th)?(?:,?\\s+)((?:19|20)\\d{2})\\b`, "i"));
+      if (monthDayYearMatch) {
+        const monthIndex = MONTH_NAME_LOOKUP[monthDayYearMatch[1].toLowerCase()];
+        const day = Number(monthDayYearMatch[2]);
+        const year = Number(monthDayYearMatch[3]);
+        const parsed = new Date(year, monthIndex, day);
+        return {
+          timestamp: parsed.getTime(),
+          year: String(year),
+          month: MONTH_SHORT_NAMES[monthIndex],
+          day,
+          precision: "day"
+        };
+      }
+
+      const monthYearMatch = normalized.match(new RegExp(`\\b(${monthNamesPattern})\\s+((?:19|20)\\d{2})\\b`, "i"));
+      if (monthYearMatch) {
+        const monthIndex = MONTH_NAME_LOOKUP[monthYearMatch[1].toLowerCase()];
+        const year = Number(monthYearMatch[2]);
+        if (year !== null) {
+          const parsed = new Date(year, monthIndex, 1);
+          return {
+            timestamp: parsed.getTime(),
+            year: String(year),
+            month: MONTH_SHORT_NAMES[monthIndex],
+            day: null,
+            precision: "month"
+          };
+        }
+      }
+
+      const yearMatch = normalized.match(/\b(19|20)\d{2}\b/);
+      if (yearMatch) {
+        const year = Number(yearMatch[0]);
+        return {
+          timestamp: new Date(year, 0, 1).getTime(),
+          year: String(year),
+          month: "unspecified",
+          day: null,
+          precision: "year"
+        };
+      }
+
+      const monthMatch = normalized.match(new RegExp(`\\b(${monthNamesPattern})\\b`, "i"));
+      if (monthMatch) {
+        const monthIndex = MONTH_NAME_LOOKUP[monthMatch[1].toLowerCase()];
+        return {
+          timestamp: null,
+          year: "unspecified",
+          month: MONTH_SHORT_NAMES[monthIndex],
+          day: null,
+          precision: "month"
+        };
+      }
+
+      return {
+        timestamp: null,
+        year: "unspecified",
+        month: "unspecified",
+        day: null,
+        precision: "unspecified"
+      };
+    }
+
+    const entriesMeta = config.entriesButtons.map((entry, originalIndex) => {
+      const plainContent = stripHtml(entry.content || "").replace(/\s+/g, " ").trim();
+      const detectedDate = detectDateFromContent(entry);
+      return {
+        ...entry,
+        originalIndex,
+        dateTimestamp: detectedDate.timestamp,
+        dateLabel: buildDateLabel(detectedDate),
+        year: detectedDate.year,
+        month: detectedDate.month,
+        entryType: (entry.entryType || inferEntryType(entry)).toLowerCase(),
+        charCount: plainContent.length,
+        lengthBucket: ""
+      };
+    });
+
+    function buildLengthFilterMetadata(entries) {
+      const buckets = [
+        { value: "shortest", label: "shortest entries", min: 0, max: 99 },
+        { value: "short", label: "short entries", min: 100, max: 499 },
+        { value: "long", label: "very long entries", min: 500, max: 1999 },
+        { value: "longest", label: "longest entries", min: 2000, max: Number.POSITIVE_INFINITY }
+      ];
+
+      entries.forEach((entry) => {
+        const matched = buckets.find((bucket) => entry.charCount >= bucket.min && entry.charCount <= bucket.max);
+        entry.lengthBucket = matched ? matched.value : "longest";
+      });
+
+      const options = [
+        { value: "longest", label: "longest entries" },
+        { value: "long", label: "long entries" },
+        { value: "short", label: "short entries" },
+        { value: "shortest", label: "shortest entries" }
+      ];
+
+      return { options };
+    }
+
+    const lengthFilterMeta = buildLengthFilterMetadata(entriesMeta);
+
+    function appendOption(select, value, label) {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = label;
+      select.appendChild(option);
+    }
+
+    function populateFilterOptions() {
+      const years = new Set();
+      const months = new Set();
+
+      entriesMeta.forEach((entry) => {
+        if (entry.year && entry.year !== "unspecified") years.add(entry.year);
+        if (entry.month && entry.month !== "unspecified") months.add(entry.month);
+      });
+
+      Array.from(years)
+        .sort((a, b) => Number(b) - Number(a))
+        .forEach((year) => appendOption(yearFilter, year, year));
+      appendOption(yearFilter, "unspecified", "unspecified");
+
+      Array.from(months)
+        .sort((a, b) => MONTH_SHORT_NAMES.indexOf(a) - MONTH_SHORT_NAMES.indexOf(b))
+        .forEach((month) => appendOption(monthFilter, month, toTitleCase(month)));
+      appendOption(monthFilter, "unspecified", "unspecified");
+
+      lengthFilterMeta.options.forEach((option) => appendOption(lengthFilter, option.value, option.label));
+    }
+
+    populateFilterOptions();
+    setupFilterOpenOnlyLabel(yearFilter, "all years");
+    setupFilterOpenOnlyLabel(monthFilter, "all months");
+    setupFilterOpenOnlyLabel(lengthFilter, "all lengths");
+
+    /* ── Discussion helpers ── */
+    function discKey(entryText) {
+      return 'sick_disc_' + entryText.toLowerCase().replace(/\s+/g, '_');
+    }
+
+    function loadComments(entryText) {
+      try { return JSON.parse(localStorage.getItem(discKey(entryText)) || '[]'); }
+      catch (e) { return []; }
+    }
+
+    function saveComment(entryText, name, text) {
+      const comments = loadComments(entryText);
+      comments.push({ name: name || 'anonymous', text, ts: Date.now() });
+      localStorage.setItem(discKey(entryText), JSON.stringify(comments));
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function formatCommentDate(ts) {
+      const d = new Date(ts);
+      const date = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+      const time = d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+      return `${date} \u00b7 ${time}`;
+    }
+
+    function renderDiscussion(entryText, section) {
+      const comments = loadComments(entryText);
+      const container = section.querySelector('.discussion-comments');
+      if (!container) return;
+      container.innerHTML = comments.length === 0
+        ? '<div class="no-comments">no yaps yet</div>'
+        : comments.map(c =>
+            `<div class="discussion-comment">
+               <div class="comment-author">${escapeHtml(c.name)} &middot; ${formatCommentDate(c.ts)}</div>
+               <div class="comment-text">${escapeHtml(c.text)}</div>
+             </div>`
+          ).join('');
+    }
+
+    entriesMeta.forEach((btn, idx) => {
       const a = document.createElement("a");
       a.textContent = btn.text;
       a.onclick = () => togglePage(idx);
-      leftTop.appendChild(a);
+      entriesPanel.appendChild(a);
       pageLinks.push(a);
 
-      pages.innerHTML += `
-        <div id="page${idx}" class="page" style="background-color: ${pageBgColors[idx]}">
-          <h3>${btn.text}</h3>
-          <p>${btn.content}</p>
+      const pageDiv = document.createElement("div");
+      pageDiv.id = `page${idx}`;
+      pageDiv.className = "page";
+      pageDiv.style.backgroundColor = pageBgColors[idx];
+      pageDiv.dataset.entryText = btn.text;
+      pageDiv.innerHTML = `
+        <h3>${btn.text}</h3>
+        <p>${linkify(btn.content)}</p>
+        <div class="page-date">${btn.dateLabel}</div>
+        <div class="discussion-section">
+          <h4>&#x1F4AC; yap</h4>
+          <div class="discussion-comments">
+            <div class="no-comments">no yaps yet</div>
+          </div>
+          <form class="discussion-form" onsubmit="return false;">
+            <input class="disc-name" type="text" placeholder="username" maxlength="50" autocomplete="off">
+            <textarea class="disc-text" rows="3" placeholder="type xi" maxlength="500"></textarea>
+            <button class="disc-submit" type="button">execute</button>
+          </form>
         </div>`;
+      pages.appendChild(pageDiv);
     });
 
     // keep track of which page (if any) is currently displayed
@@ -307,24 +966,167 @@
       activePage.style.display = "block";
       pages.style.backgroundColor = pageBgColors[n];
       currentPage = n;
+
+      // Render stored comments for this entry
+      const section = activePage.querySelector('.discussion-section');
+      if (section) renderDiscussion(activePage.dataset.entryText, section);
     }
 
-    // Right panel links
-    config.rightLinks.forEach((lc, idx) => {
+    function stripHtml(text) {
+      return text.replace(/<[^>]*>/g, " ");
+    }
+
+    function linkify(html) {
+      // Match bare URLs not already inside an href attribute
+      return html.replace(/(?<!href=["'])((https?:\/\/|www\.)[^\s<>"']+[^\s<>"'.,!?;:)])/gi, (url) => {
+        const href = url.startsWith("http") ? url : "https://" + url;
+        return `<a href="${href}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+      });
+    }
+
+    function entryMatchesSearch(entry, query) {
+      if (!query) return true;
+      const haystack = `${entry.text} ${stripHtml(entry.content)}`.toLowerCase();
+      return haystack.includes(query);
+    }
+
+    function sortEntries(entries, sortMode) {
+      if (sortMode === "old") {
+        return entries.sort((a, b) => {
+          if (a.dateTimestamp === null && b.dateTimestamp === null) {
+            return a.originalIndex - b.originalIndex;
+          }
+          if (a.dateTimestamp === null) return 1;
+          if (b.dateTimestamp === null) return -1;
+          return a.dateTimestamp - b.dateTimestamp;
+        });
+      }
+      if (sortMode === "char-count") {
+        return entries.sort((a, b) => {
+          if (b.charCount === a.charCount) {
+            return b.originalIndex - a.originalIndex;
+          }
+          return b.charCount - a.charCount;
+        });
+      }
+      // "new": latest dates first
+      return entries.sort((a, b) => {
+        if (a.dateTimestamp === null && b.dateTimestamp === null) {
+          return b.originalIndex - a.originalIndex;
+        }
+        if (a.dateTimestamp === null) return 1;
+        if (b.dateTimestamp === null) return -1;
+        return b.dateTimestamp - a.dateTimestamp;
+      });
+    }
+
+    function applyControls() {
+      const query = entrySearch.value.trim().toLowerCase();
+      const selectedYear = yearFilter.value;
+      const selectedMonth = monthFilter.value;
+      const selectedLength = lengthFilter.value;
+      const sortMode = getCurrentSortMode();
+
+      const visibleEntries = entriesMeta.filter((entry) => {
+        if (!entryMatchesSearch(entry, query)) return false;
+        if (selectedYear !== "all" && entry.year !== selectedYear) return false;
+        if (selectedMonth !== "all" && entry.month !== selectedMonth) return false;
+        if (selectedLength !== "all" && entry.lengthBucket !== selectedLength) return false;
+        return true;
+      });
+
+      sortEntries(visibleEntries, sortMode);
+      visibleEntryOrder = visibleEntries.map((entry) => entry.originalIndex);
+
+      pageLinks.forEach((link, idx) => {
+        const orderPos = visibleEntryOrder.indexOf(idx);
+        if (orderPos === -1) {
+          link.style.display = "none";
+          link.style.order = "";
+          return;
+        }
+        link.style.display = "inline-block";
+        link.style.order = String(orderPos);
+      });
+
+      if (currentPage !== null && !visibleEntryOrder.includes(currentPage)) {
+        document.getElementById("page" + currentPage).style.display = "none";
+        pages.style.backgroundColor = "var(--page-bg)";
+        currentPage = null;
+      }
+    }
+
+    function applySearchFilter(rawQuery) {
+      entrySearch.value = rawQuery;
+      applyControls();
+    }
+
+    function openFirstVisibleEntry() {
+      if (visibleEntryOrder.length > 0) {
+        togglePage(visibleEntryOrder[0]);
+      }
+    }
+
+    entrySearch.addEventListener("input", (event) => {
+      applySearchFilter(event.target.value);
+    });
+
+    entrySearch.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        openFirstVisibleEntry();
+      }
+    });
+
+    sortButton.addEventListener("click", () => {
+      currentSortModeIndex = (currentSortModeIndex + 1) % SORT_MODES.length;
+      updateSortButtonUi();
+      applyControls();
+    });
+
+    yearFilter.addEventListener("change", applyControls);
+    monthFilter.addEventListener("change", applyControls);
+    lengthFilter.addEventListener("change", applyControls);
+
+    // Discussion: post button via event delegation
+    pages.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("disc-submit")) return;
+      const form = e.target.closest(".discussion-form");
+      const section = e.target.closest(".discussion-section");
+      const page = e.target.closest(".page");
+      if (!form || !section || !page) return;
+      const nameInput = form.querySelector(".disc-name");
+      const textInput = form.querySelector(".disc-text");
+      const commentText = textInput.value.trim();
+      if (!commentText) return;
+      saveComment(page.dataset.entryText, nameInput.value.trim(), commentText);
+      nameInput.value = "";
+      textInput.value = "";
+      renderDiscussion(page.dataset.entryText, section);
+    });
+
+    // Hyperlinks panel links
+    config.hyperlinksLinks.forEach((lc, idx) => {
       const a = document.createElement("a");
       a.href = lc.url;
       a.target = "_blank";
-      a.textContent = lc.text;
       a.style.color = lc.color;
       a.style.animationDelay = `${idx * 0.1}s`;
-      rightPanel.appendChild(a);
+      if (lc.img) {
+        const img = document.createElement("img");
+        img.src = lc.img;
+        img.alt = lc.text;
+        a.appendChild(img);
+      } else {
+        a.textContent = lc.text;
+      }
+      hyperlinksPanel.appendChild(a);
     });
 
     // embed panel removed
 
     // Static colors evenly spread through colour spectrum
     function assignSpectrumColors() {
-      const count = config.leftButtons.length;
+      const count = config.entriesButtons.length;
       pageLinks.forEach((link, idx) => {
         const h = Math.round((idx / count) * 360);
         link.style.color = `hsl(${h}, 80%, 55%)`;
@@ -332,6 +1134,8 @@
     }
 
     assignSpectrumColors();
+    updateSortButtonUi();
+    applySearchFilter("");
     // no default page on load; user must click a link to view a page
     // togglePage(0);
   </script>
