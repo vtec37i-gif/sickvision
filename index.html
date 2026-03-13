@@ -3,6 +3,8 @@
 <head>
   <title>sick.vision</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
   <style>
     :root {
       --body-bg: #111;
@@ -319,104 +321,6 @@
 
       #pages h3 { font-size: 20px; margin: 0; }
       .page-date { font-size: 10px; }
-    }
-
-    /* ── Discussion ── */
-    .discussion-section {
-      margin-top: 12px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.09);
-    }
-
-    .discussion-section h4 {
-      margin: 0 0 12px 0;
-      color: rgba(255, 255, 255, 0.38);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 600;
-    }
-
-    .discussion-comments {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .no-comments {
-      color: rgba(255, 255, 255, 0.22);
-      font-size: 13px;
-      font-style: italic;
-    }
-
-    .discussion-comment {
-      background: rgba(255, 255, 255, 0.04);
-      border-left: 2px solid rgba(255, 255, 255, 0.18);
-      padding: 8px 12px;
-      box-sizing: border-box;
-    }
-
-    .comment-author {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.35);
-      margin-bottom: 4px;
-      letter-spacing: 0.04em;
-    }
-
-    .comment-text {
-      font-size: 14px;
-      color: #c8c8c8;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    .discussion-form {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .discussion-form input,
-    .discussion-form textarea {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.13);
-      color: #ddd;
-      font-size: 13px;
-      padding: 7px 10px;
-      outline: none;
-      resize: vertical;
-      font-family: inherit;
-      box-sizing: border-box;
-      width: 100%;
-    }
-
-    .discussion-form input::placeholder,
-    .discussion-form textarea::placeholder {
-      color: rgba(255, 255, 255, 0.22);
-    }
-
-    .discussion-form input:focus,
-    .discussion-form textarea:focus {
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .disc-submit {
-      align-self: flex-start;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: #ccc;
-      font-size: 12px;
-      padding: 5px 16px;
-      cursor: pointer;
-      letter-spacing: 0.07em;
-      font-family: inherit;
-      text-transform: lowercase;
-    }
-
-    .disc-submit:hover {
-      background: rgba(255, 255, 255, 0.16);
-      color: #fff;
     }
   </style>
 </head>
@@ -874,47 +778,10 @@
     setupFilterOpenOnlyLabel(monthFilter, "all months");
     setupFilterOpenOnlyLabel(lengthFilter, "all lengths");
 
-    /* ── Discussion helpers ── */
-    function discKey(entryText) {
-      return 'sick_disc_' + entryText.toLowerCase().replace(/\s+/g, '_');
-    }
-
-    function loadComments(entryText) {
-      try { return JSON.parse(localStorage.getItem(discKey(entryText)) || '[]'); }
-      catch (e) { return []; }
-    }
-
-    function saveComment(entryText, name, text) {
-      const comments = loadComments(entryText);
-      comments.push({ name: name || 'anonymous', text, ts: Date.now() });
-      localStorage.setItem(discKey(entryText), JSON.stringify(comments));
-    }
-
     function escapeHtml(str) {
       return String(str)
         .replace(/&/g, '&amp;').replace(/</g, '&lt;')
         .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
-    function formatCommentDate(ts) {
-      const d = new Date(ts);
-      const date = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
-      const time = d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
-      return `${date} \u00b7 ${time}`;
-    }
-
-    function renderDiscussion(entryText, section) {
-      const comments = loadComments(entryText);
-      const container = section.querySelector('.discussion-comments');
-      if (!container) return;
-      container.innerHTML = comments.length === 0
-        ? '<div class="no-comments">no yaps yet</div>'
-        : comments.map(c =>
-            `<div class="discussion-comment">
-               <div class="comment-author">${escapeHtml(c.name)} &middot; ${formatCommentDate(c.ts)}</div>
-               <div class="comment-text">${escapeHtml(c.text)}</div>
-             </div>`
-          ).join('');
     }
 
     entriesMeta.forEach((btn, idx) => {
@@ -932,18 +799,7 @@
       pageDiv.innerHTML = `
         <h3>${btn.text}</h3>
         <p>${linkify(btn.content)}</p>
-        <div class="page-date">${btn.dateLabel}</div>
-        <div class="discussion-section">
-          <h4>&#x1F4AC; yap</h4>
-          <div class="discussion-comments">
-            <div class="no-comments">no yaps yet</div>
-          </div>
-          <form class="discussion-form" onsubmit="return false;">
-            <input class="disc-name" type="text" placeholder="username" maxlength="50" autocomplete="off">
-            <textarea class="disc-text" rows="3" placeholder="type xi" maxlength="500"></textarea>
-            <button class="disc-submit" type="button">execute</button>
-          </form>
-        </div>`;
+        <div class="page-date">${btn.dateLabel}</div>`;
       pages.appendChild(pageDiv);
     });
 
@@ -966,10 +822,6 @@
       activePage.style.display = "block";
       pages.style.backgroundColor = pageBgColors[n];
       currentPage = n;
-
-      // Render stored comments for this entry
-      const section = activePage.querySelector('.discussion-section');
-      if (section) renderDiscussion(activePage.dataset.entryText, section);
     }
 
     function stripHtml(text) {
@@ -1086,23 +938,6 @@
     yearFilter.addEventListener("change", applyControls);
     monthFilter.addEventListener("change", applyControls);
     lengthFilter.addEventListener("change", applyControls);
-
-    // Discussion: post button via event delegation
-    pages.addEventListener("click", (e) => {
-      if (!e.target.classList.contains("disc-submit")) return;
-      const form = e.target.closest(".discussion-form");
-      const section = e.target.closest(".discussion-section");
-      const page = e.target.closest(".page");
-      if (!form || !section || !page) return;
-      const nameInput = form.querySelector(".disc-name");
-      const textInput = form.querySelector(".disc-text");
-      const commentText = textInput.value.trim();
-      if (!commentText) return;
-      saveComment(page.dataset.entryText, nameInput.value.trim(), commentText);
-      nameInput.value = "";
-      textInput.value = "";
-      renderDiscussion(page.dataset.entryText, section);
-    });
 
     // Hyperlinks panel links
     config.hyperlinksLinks.forEach((lc, idx) => {
